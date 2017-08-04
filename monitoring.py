@@ -15,25 +15,24 @@ def notify_about_server_error(msg, sentryClient, bot, bot_users):
 
 if __name__ == "__main__":
     parser = argparse.ArgumentParser(description='Bot monitoring')
-    parser.add_argument('-p', default=80, type=int,
+    parser.add_argument('-port', default=80, type=int,
                         help='port for requests')
-    parser.add_argument('-h', default="http://localhost",
+    parser.add_argument('-host', default="http://localhost",
                         help='port for requests')
     parser.add_argument('-d', default=60, type=int,
                         help='delay between requests')
     parser.add_argument('-t', required=True,
                         help='bot token')
+    parser.add_argument('-u', required=True, nargs='+',
+                        help='telegram developer ids')
     args = parser.parse_args()
 
-    port = args.p
-    host = args.h
+    port = args.port
+    host = args.host
     delay = args.d
 
     bot = telegram.Bot(token=args.t)
-    bot_users = [
-        "1562163" # @stask
-    ]
-
+    bot_users = args.u
     serviceName = "service"
 
     sentryUrl = os.environ.get('SENTRY_PRIVATE_DSN')
