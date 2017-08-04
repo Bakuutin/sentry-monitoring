@@ -17,6 +17,8 @@ if __name__ == "__main__":
     parser = argparse.ArgumentParser(description='Bot monitoring')
     parser.add_argument('-p', default=80, type=int,
                         help='port for requests')
+    parser.add_argument('-h', default="http://localhost",
+                        help='port for requests')
     parser.add_argument('-d', default=60, type=int,
                         help='delay between requests')
     parser.add_argument('-t', required=True,
@@ -24,6 +26,7 @@ if __name__ == "__main__":
     args = parser.parse_args()
 
     port = args.p
+    host = args.h
     delay = args.d
 
     bot = telegram.Bot(token=args.t)
@@ -39,7 +42,7 @@ if __name__ == "__main__":
 
     while True:
         try:
-            response = urllib.request.urlopen("http://localhost:{}".format(port), timeout=2)
+            response = urllib.request.urlopen("{}:{}".format(host, port), timeout=2)
             code = response.getcode()
             if code != 200:
                 notify_about_server_error("{} responded with not ok code {}".format(serviceName, code),
