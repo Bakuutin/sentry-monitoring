@@ -35,7 +35,7 @@ if __name__ == "__main__":
     bot_users = args.u
     serviceName = "service"
 
-    sentryUrl = os.environ.get('SENTRY_PRIVATE_DSN')
+    sentryUrl = os.environ.get('SENTRY_MONITORING_PRIVATE_DSN')
     sentryClient = Client(sentryUrl)
 
 
